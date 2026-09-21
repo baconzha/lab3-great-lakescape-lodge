@@ -78,9 +78,9 @@ body {
 
 /* Assign each section to a grid area */
 body > header       { grid-area: header; }
-section#leftcol     { grid-area: leftcol; margin: 0; padding: 0 15px; width: auto; float: none; }
-section#rightcol    { grid-area: rightcol; margin: 0; width: auto; float: none; }
-footer             { grid-area: footer; }
+body > section#leftcol  { grid-area: leftcol; margin: 0; padding: 0 15px; width: auto; float: none; }
+body > section#rightcol { grid-area: rightcol; margin: 0; width: auto; float: none; }
+body > footer       { grid-area: footer; }
 
 /* Header logo image — full width banner */
 body > header > img {
