@@ -1,0 +1,354 @@
+@charset "utf-8";
+
+/*
+   New Perspectives on HTML5 and CSS3, 7th Edition
+   Tutorial 2
+   Case Problem 4
+
+   Great Lakescape Lodge Style Sheet
+   Author: Chengen Liu
+   Date: 2026-09-20
+
+   Filename: lake_styles.css
+
+   Colour palette (lakeside lodge theme)
+   - Charcoal:       #1a1a1a  (main background)
+   - Medium purple:  #8B5A9F  (navigation bar)
+   - Deep plum:      #5A2D6B  (sidebar / right column)
+   - Light pink:     #E8A5A5  (Notes aside)
+   - Light khaki:    #C4B896  (Events aside)
+   - Dark gray:      #4A4A4A  (footer)
+   - Lavender:       #B8A5C4  (sidebar links)
+   - Off-white:      #f0f0f0  (body text)
+*/
+
+/* ============================================================
+   3.b Web fonts — load the two supplied font files
+   ============================================================ */
+
+/* Decorative script font for headings */
+@font-face {
+   font-family: 'cac_champagne';
+   src: url('cac_champagne.woff') format('woff'),
+        url('cac_champagne.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+}
+
+/* Script font for sub-headings and blockquote */
+@font-face {
+   font-family: 'DobkinPlain';
+   src: url('DobkinPlain.woff') format('woff'),
+        url('DobkinPlain.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+}
+
+/* ============================================================
+   Outer page background
+   3.c colour name used: lightgray
+   ============================================================ */
+html {
+   background-color: lightgray;         /* colour name */
+}
+
+/* ============================================================
+   3.j Grid layout — overall page structure
+   The body becomes a grid container; the float rules from
+   lake_layout.css are ignored for grid items automatically.
+   ============================================================ */
+body {
+   display: grid;
+   grid-template-areas:
+      "header  header"
+      "leftcol rightcol"
+      "footer  footer";
+   grid-template-columns: 70% 30%;
+   grid-template-rows: auto 1fr auto;
+   background-color: #1a1a1a;          /* charcoal background (hex value) */
+   color: white;                        /* body text colour (colour name) */
+   font-family: Arial, Verdana, sans-serif;
+   font-size: 14px;
+   line-height: 1.6;
+   margin: 0 auto;
+   width: 100%;
+   max-width: 1020px;
+   min-width: 640px;
+}
+
+/* Assign each section to a grid area */
+body > header       { grid-area: header; }
+section#leftcol     { grid-area: leftcol; margin: 0; padding: 0 15px; }
+section#rightcol    { grid-area: rightcol; margin: 0; }
+footer             { grid-area: footer; }
+
+/* Header logo image — full width banner */
+body > header > img {
+   width: 100%;
+   display: block;
+   margin: 0;
+}
+
+/* ============================================================
+   3.j Flexbox layout for the header navigation bar
+   Replaces the table display from lake_layout.css
+   ============================================================ */
+body > header > nav {
+   display: flex;
+   background-color: #8B5A9F;          /* medium purple (hex value) */
+   margin: 0;
+   padding: 0;
+}
+
+body > header > nav > ul {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+   align-items: center;
+   list-style-type: none;
+   width: 100%;
+   margin: 0;
+   padding: 0;
+}
+
+body > header > nav > ul > li {
+   flex: 1 1 auto;          /* each item grows equally */
+   text-align: center;
+}
+
+/* 3.e child selector — direct anchor children            */
+/* 3.h padding around each navigation link                */
+/* 3.g pseudo-class :hover                                 */
+body > header > nav a {
+   display: block;
+   padding: 10px 8px;
+   color: white;                         /* colour name */
+   text-decoration: none;
+   font-size: 0.95em;
+}
+
+body > header > nav a:hover,
+body > header > nav a:focus {
+   background-color: rgba(90, 45, 107, 0.7);   /* 3.d semi-transparent plum */
+   color: gold;                                 /* colour name */
+}
+
+/* ============================================================
+   Left column — main content area
+   ============================================================ */
+
+/* Welcome heading — decorative web font, left-aligned */
+section#leftcol > h1 {
+   font-family: 'cac_champagne', cursive;
+   font-size: 2.8em;
+   color: white;                         /* colour name */
+   text-align: left;
+   margin: 15px 0 10px 0;                /* 3.h margin */
+   padding: 5px 0;                       /* 3.h padding */
+}
+
+/* Hero photo */
+section#leftcol img {
+   width: 100%;
+   display: block;
+   border-radius: 4px;
+   margin: 10px 0;                       /* 3.h margin */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);  /* 3.d semi-transparent shadow */
+}
+
+/* 3.e child selector — direct paragraph children          */
+/* 3.h padding and margin on paragraphs                    */
+section#leftcol > p {
+   padding: 5px 0;                       /* 3.h padding */
+   margin: 8px 0;                        /* 3.h margin */
+   color: #f0f0f0;                       /* off-white (hex value) */
+}
+
+/* 3.e nested descendant selector — emphasised text inside paragraphs */
+section#leftcol p em {
+   color: gold;                         /* colour name */
+   font-style: italic;
+   font-weight: bold;
+}
+
+/* 3.g pseudo-element ::first-letter — drop cap on first paragraph */
+section#leftcol > p:first-of-type::first-letter {
+   font-family: 'cac_champagne', cursive;
+   font-size: 3em;
+   color: #B8A5C4;                       /* lavender (hex value) */
+   float: left;
+   padding: 4px 6px 0 0;
+   line-height: 0.8;
+}
+
+/* ============================================================
+   3.f Lists and list markers — asides at bottom of left column
+   ============================================================ */
+
+/* Keep the float widths from lake_layout.css, add padding */
+section#leftcol aside {
+   width: 42%;
+   float: left;
+   margin: 10px 2.5%;                    /* 3.h margin */
+   padding: 12px 15px;                   /* 3.h padding inside asides */
+}
+
+/* 3.g pseudo-class :first-of-type — Notes box (light pink) */
+section#leftcol aside:first-of-type {
+   background-color: #E8A5A5;           /* light pink (hex value) */
+   color: #2a1a1a;
+}
+
+/* 3.g pseudo-class :last-of-type — Events box (light khaki) */
+section#leftcol aside:last-of-type {
+   background-color: #C4B896;           /* light khaki (hex value) */
+   color: #2a1a1a;
+}
+
+/* Aside headings — decorative web font */
+section#leftcol aside h1 {
+   font-family: 'cac_champagne', cursive;
+   font-size: 1.6em;
+   color: #2a1a1a;
+   margin: 0 0 8px 0;
+   padding-bottom: 5px;
+   border-bottom: 1px solid rgba(42, 26, 26, 0.3);   /* 3.d semi-transparent border */
+}
+
+/* 3.i generated content — decorative mark before aside headings */
+section#leftcol aside h1::before {
+   content: "\2767  ";    /* floral heart bullet */
+   color: purple;          /* colour name */
+}
+
+/* Event sub-headings — second web font */
+section#leftcol aside h2 {
+   font-family: 'DobkinPlain', cursive;
+   font-size: 1.25em;
+   color: #2a1a1a;
+   margin: 8px 0 3px 0;
+}
+
+/* 3.f list marker styling — disc markers for Notes list */
+section#leftcol aside ul {
+   list-style-type: disc;
+   padding-left: 20px;
+}
+
+section#leftcol aside ul li::marker {
+   color: #5A2D6B;                      /* deep plum markers */
+}
+
+/* 3.e nested selector — links inside the Notes aside */
+section#leftcol aside a {
+   color: #C458A5;                      /* magenta-pink */
+   text-decoration: none;
+   font-weight: bold;
+}
+
+section#leftcol aside a:hover {
+   color: #2a1a1a;
+   text-decoration: underline;
+}
+
+/* ============================================================
+   3.e ID selector — right column sidebar
+   ============================================================ */
+section#rightcol {
+   background-color: #5A2D6B;          /* deep plum (hex value) */
+   padding: 12px;                       /* 3.h padding inside sidebar */
+   color: #B8A5C4;                      /* lavender text (hex value) */
+}
+
+/* Sidebar section headers — decorative web font */
+section#rightcol nav h2 {
+   font-family: 'cac_champagne', cursive;
+   font-size: 1.5em;
+   color: white;                        /* colour name */
+   border-bottom: 1px solid #8B5A9F;
+   padding: 5px 0;                      /* 3.h padding */
+   margin: 12px 0 6px 0;               /* 3.h margin */
+}
+
+/* 3.f sidebar lists — no default bullets, custom markers */
+section#rightcol nav ul {
+   list-style-type: none;
+   padding: 0;
+   margin: 0 0 8px 0;
+}
+
+section#rightcol nav ul li {
+   padding: 3px 0 3px 18px;            /* 3.h padding on list items */
+   position: relative;
+}
+
+/* 3.i generated content — custom arrow markers */
+section#rightcol nav ul li::before {
+   content: "\27A4 ";                   /* arrow */
+   color: #B8A5C4;
+   position: absolute;
+   left: 0;
+   font-size: 0.8em;
+}
+
+/* 3.e nested selector — sidebar links */
+section#rightcol nav a {
+   color: #B8A5C4;                     /* lavender */
+   text-decoration: none;
+}
+
+section#rightcol nav a:hover {
+   color: white;                        /* colour name */
+   text-decoration: underline;
+}
+
+/* ============================================================
+   Blockquote — guest testimonial in sidebar
+   ============================================================ */
+section#rightcol blockquote {
+   margin: 20px 5px;                     /* 3.h margin */
+   padding: 15px 25px;                   /* 3.h padding */
+   font-family: 'DobkinPlain', cursive;
+   font-style: italic;
+   color: #D4A5D4;                      /* light pink/lavender (hex value) */
+   font-size: 1.05em;
+   background-color: rgba(0, 0, 0, 0.25);   /* 3.d semi-transparent black */
+}
+
+/* 3.i generated content — decorative opening quote mark */
+section#rightcol blockquote::before {
+   content: "\201C";                    /* left double quotation mark */
+   font-size: 2.8em;
+   color: #D4A5D4;
+   line-height: 0.4;
+   vertical-align: top;
+}
+
+/* 3.i generated content — decorative closing quote mark */
+section#rightcol blockquote::after {
+   content: "\201D";                    /* right double quotation mark */
+   font-size: 2.8em;
+   color: #D4A5D4;
+   line-height: 0.4;
+   vertical-align: bottom;
+}
+
+/* ============================================================
+   Footer — dark gray
+   ============================================================ */
+footer {
+   background-color: #4A4A4A;          /* dark gray (hex value) */
+   color: white;                        /* colour name */
+   text-align: center;
+   padding: 12px 10px;                  /* 3.h padding */
+   margin-top: 0;
+   font-size: 0.9em;
+   text-transform: uppercase;
+   letter-spacing: 0.5px;
+}
+
+/* Lodge name in footer — gold accent */
+footer em {
+   color: gold;                         /* colour name */
+   font-style: normal;
+}
